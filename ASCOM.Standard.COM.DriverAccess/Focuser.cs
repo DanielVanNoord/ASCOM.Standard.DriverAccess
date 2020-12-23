@@ -108,7 +108,7 @@ namespace ASCOM.Standard.COM.DriverAccess
 
         public void Move(int Position)
         {
-            base.Device.Device.Move(Position);
+            base.Device.Move(Position);
         }
     }
 }
