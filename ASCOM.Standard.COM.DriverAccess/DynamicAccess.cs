@@ -40,7 +40,7 @@ namespace ASCOM.Standard.COM.DriverAccess
                 if (ex.InnerException?.HResult == ErrorCodes.NotImplemented)
                 {
                     var member = (string)ex.InnerException.GetType().InvokeMember("PropertyOrMethod", BindingFlags.Default | BindingFlags.GetProperty, null, ex.InnerException, new object[] { }, CultureInfo.InvariantCulture);
-                    //TL.LogMessageCrLf(binder.Name, "  Throwing MethodNotImplementedException: '" + member + "'");
+                    FakeLogger.LogMessageCrLf(binder.Name, "  Throwing MethodNotImplementedException: '" + member + "'");
                     throw new MethodNotImplementedException(member, ex.InnerException);
                 }
 
@@ -74,7 +74,7 @@ namespace ASCOM.Standard.COM.DriverAccess
                 if (ex.InnerException?.HResult == ErrorCodes.NotImplemented)
                 {
                     var member = (string)ex.InnerException.GetType().InvokeMember("PropertyOrMethod", BindingFlags.Default | BindingFlags.GetProperty, null, ex.InnerException, new object[] { }, CultureInfo.InvariantCulture);
-                    //TL.LogMessageCrLf(binder.Name, "  Throwing PropertyNotImplementedException: '" + member + "'");
+                    FakeLogger.LogMessageCrLf(binder.Name, "  Throwing PropertyNotImplementedException: '" + member + "'");
                     throw new PropertyNotImplementedException(member, false, ex.InnerException);
                 }
 
@@ -106,7 +106,7 @@ namespace ASCOM.Standard.COM.DriverAccess
                 if (ex.InnerException?.HResult == ErrorCodes.NotImplemented)
                 {
                     var member = (string)ex.InnerException.GetType().InvokeMember("PropertyOrMethod", BindingFlags.Default | BindingFlags.GetProperty, null, ex.InnerException, new object[] { }, CultureInfo.InvariantCulture);
-                    //TL.LogMessageCrLf(binder.Name, "  Throwing PropertyNotImplementedException: '" + member + "'");
+                    FakeLogger.LogMessageCrLf(binder.Name, "  Throwing PropertyNotImplementedException: '" + member + "'");
                     throw new PropertyNotImplementedException(member, false, ex.InnerException);
                 }
 
@@ -131,7 +131,120 @@ namespace ASCOM.Standard.COM.DriverAccess
         /// <param name="e">The thrown TargetInvocationException including the inner exception</param>
         private void CheckDotNetExceptions(string memberName, Exception e)
         {
-            throw new NotImplementedException();
+            string FullName = e.InnerException?.GetType().FullName ?? "Unknown Exception";
+            string message = "";
+            string member;
+            string value;
+            string range;
+
+            int HResult = e.InnerException?.HResult ?? 0;
+
+            // Deal with the possibility that DriverAccess is being used in both driver and client so remove the outer
+            // DriverAccessCOMException exception if present
+            if (e.InnerException is DriverAccessCOMException)
+            {
+                message = e.InnerException.InnerException.Message;
+                FakeLogger.LogMessageCrLf(memberName, "  *** Found DriverAccessCOMException so stripping this off and reprocessing through CheckDotNetExceptions: '" + message + "'");
+                FakeLogger.LogMessageCrLf(memberName, "  *** Inner exception is: " + e.InnerException.InnerException.GetType().Name);
+                try // Try and print out the Inner.Inner exception
+                {
+                    FakeLogger.LogMessageCrLf(memberName, "  *** InnerException.InnerException is: " + e.InnerException.InnerException.InnerException.GetType().Name);
+                }
+                catch (Exception ex)
+                {
+                    // Report but ignore this error, catch it later in CheckDotNetExceptions
+                    FakeLogger.LogMessageCrLf(memberName, "  *** Exception arose when accessing InnerException.InnerException: " + ex.ToString());
+                }
+
+                CheckDotNetExceptions(memberName + " inner exception", e.InnerException.InnerException);
+            }
+
+            //Throw the appropriate exception based on the inner exception of the TargetInvocationException
+            if (HResult == ErrorCodes.InvalidOperationException)
+            {
+                message = e.InnerException.Message;
+                FakeLogger.LogMessageCrLf(memberName, "  Throwing InvalidOperationException: '" + message + "'");
+                throw new InvalidOperationException(message, e.InnerException);
+            }
+
+            if (HResult == ErrorCodes.InvalidValue)
+            {
+                member = (string)e.InnerException.GetType().InvokeMember("PropertyOrMethod", BindingFlags.Default | BindingFlags.GetProperty, null, e.InnerException, new object[] { }, CultureInfo.InvariantCulture);
+                value = (string)e.InnerException.GetType().InvokeMember("Value", BindingFlags.Default | BindingFlags.GetProperty, null, e.InnerException, new object[] { }, CultureInfo.InvariantCulture);
+                range = (string)e.InnerException.GetType().InvokeMember("Range", BindingFlags.Default | BindingFlags.GetProperty, null, e.InnerException, new object[] { }, CultureInfo.InvariantCulture);
+
+                FakeLogger.LogMessageCrLf(memberName, "  Throwing InvalidValueException: '" + member + "' '" + value + "' '" + range + "'");
+                throw new InvalidValueException(member, value, range, e.InnerException);
+            }
+
+            if (HResult == ErrorCodes.NotConnected)
+            {
+                message = e.InnerException.Message;
+                FakeLogger.LogMessageCrLf(memberName, "  Throwing NotConnectedException: '" + message + "'");
+                throw new NotConnectedException(message, e.InnerException);
+            }
+
+            if (HResult == ErrorCodes.NotImplemented)
+            {
+                member = (string)e.InnerException.GetType().InvokeMember("PropertyOrMethod", BindingFlags.Default | BindingFlags.GetProperty, null, e.InnerException, new object[] { }, CultureInfo.InvariantCulture);
+                FakeLogger.LogMessageCrLf(memberName, "  Throwing NotImplementedException: '" + member + "'");
+                throw new NotImplementedException(member, e.InnerException);
+            }
+
+            if (HResult == ErrorCodes.InvalidWhileParked)
+            {
+                message = e.InnerException.Message;
+
+                FakeLogger.LogMessageCrLf(memberName, "  Throwing ParkedException: '" + message + "'");
+                throw new ParkedException(message, e.InnerException);
+            }
+
+            if (HResult == ErrorCodes.InvalidWhileSlaved)
+            {
+                message = e.InnerException.Message;
+
+                FakeLogger.LogMessageCrLf(memberName, "  Throwing SlavedException: '" + message + "'");
+                throw new SlavedException(message, e.InnerException);
+            }
+
+            if (HResult == ErrorCodes.ValueNotSet)
+            {
+                member = (string)e.InnerException.GetType().InvokeMember("PropertyOrMethod", BindingFlags.Default | BindingFlags.GetProperty, null, e.InnerException, new object[] { }, CultureInfo.InvariantCulture);
+
+                FakeLogger.LogMessageCrLf(memberName, "  Throwing ValueNotSetException: '" + member + "'");
+                throw new ValueNotSetException(member, e.InnerException);
+            }
+
+            if (HResult >= ErrorCodes.DriverBase && HResult <= ErrorCodes.DriverMax)
+            {
+                message = e.InnerException.Message;
+                int number = (int)e.InnerException.GetType().InvokeMember("Number", BindingFlags.Default | BindingFlags.GetProperty, null, e.InnerException, new object[] { }, CultureInfo.InvariantCulture);
+
+                FakeLogger.LogMessageCrLf(memberName, "  Throwing DriverException: '" + message + "' '" + number + "'");
+                throw new DriverException(message, number, e.InnerException);
+            }
+
+            if (e.InnerException is COMException)
+            {
+                message = e.InnerException.Message;
+                int number = (int)e.InnerException.GetType().InvokeMember("ErrorCode", BindingFlags.Default | BindingFlags.GetProperty, null, e.InnerException, new object[] { }, CultureInfo.InvariantCulture);
+
+                FakeLogger.LogMessageCrLf(memberName, "  Throwing DriverAccessCOMException: '" + message + "' '" + number + "'");
+                throw new DriverAccessCOMException(message, number, e.InnerException);
+            }
+
+            // Default behavior if its not one of the exceptions above
+            string defaultmessage = "CheckDotNetExceptions " + "_strProgId" + " " + memberName + " " + e.InnerException.ToString() + " (See Inner Exception for details)";
+
+            FakeLogger.LogMessageCrLf(memberName, "  Throwing Default DriverException: '" + defaultmessage + "'");
+            throw new DriverException(defaultmessage, e.InnerException);
+        }
+    }
+
+    internal class FakeLogger
+    {
+        internal static void LogMessageCrLf(string memberName, string v)
+        {
         }
     }
 }
