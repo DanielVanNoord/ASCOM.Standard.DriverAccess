@@ -6,7 +6,7 @@ using System.Text;
 
 namespace ASCOM.Standard.COM.DriverAccess
 {
-    public class ASCOMDevice : Interfaces.IAscomDevice
+    public class ASCOMDevice : Interfaces.IAscomDevice, IDisposable
     {
         private dynamic device;
         internal dynamic Device
