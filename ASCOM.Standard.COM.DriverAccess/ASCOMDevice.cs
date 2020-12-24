@@ -6,7 +6,7 @@ using System.Text;
 
 namespace ASCOM.Standard.COM.DriverAccess
 {
-    public class ASCOMDevice : Interfaces.IAscomDevice, IDisposable
+    public abstract class ASCOMDevice : Interfaces.IAscomDevice, IDisposable
     {
         private dynamic device;
         internal dynamic Device
@@ -42,11 +42,21 @@ namespace ASCOM.Standard.COM.DriverAccess
 
                 return interfaceVersion.Value; // Return the newly retrieved or already cached value
             }
-        }           
+        }
 
         public string Name => Device.Name;
 
-        public IList<string> SupportedActions => (Device.SupportedActions as IEnumerable).Cast<string>().ToList();
+        public IList<string> SupportedActions
+        {
+            get
+            {
+                if(InterfaceVersion == 1)
+                {
+                    return new List<string>();
+                }
+                return (Device.SupportedActions as IEnumerable).Cast<string>().ToList();
+            }
+        }
 
         public string Action(string ActionName, string ActionParameters)
         {
