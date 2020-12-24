@@ -6,6 +6,8 @@ namespace ASCOM.Standard.COM.DriverAccess
 {
     public class FilterWheel : ASCOMDevice, ASCOM.Standard.Interfaces.IFilterWheelV2
     {
+        public static List<ASCOMRegistration> FilterWheels => ProfileAccess.GetDrivers(DriverTypes.FilterWheel);
+
         public FilterWheel(string ProgID) : base(ProgID)
         {
 

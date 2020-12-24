@@ -6,6 +6,8 @@ namespace ASCOM.Standard.COM.DriverAccess
 {
     public class Rotator : ASCOMDevice, ASCOM.Standard.Interfaces.IRotatorV3
     {
+        public static List<ASCOMRegistration> Rotators => ProfileAccess.GetDrivers(DriverTypes.Rotator);
+
         public Rotator(string ProgID) : base(ProgID)
         {
 
