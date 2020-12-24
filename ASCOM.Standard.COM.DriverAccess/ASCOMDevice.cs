@@ -46,7 +46,7 @@ namespace ASCOM.Standard.COM.DriverAccess
 
         public string Name => Device.Name;
 
-        public IList<string> SupportedActions => (Device.SupportedActions as ArrayList).Cast<string>().ToList();
+        public IList<string> SupportedActions => (Device.SupportedActions as IEnumerable).Cast<string>().ToList();
 
         public string Action(string ActionName, string ActionParameters)
         {
