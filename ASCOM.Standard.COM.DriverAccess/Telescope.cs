@@ -34,7 +34,7 @@ namespace ASCOM.Standard.COM.DriverAccess
             {
                 if(InterfaceVersion == 1)
                 {
-                    throw new ASCOM.PropertyNotImplementedException("AlignmentMode is only supported by Interface Versions 2 and 3.");
+                    throw new ASCOM.PropertyNotImplementedException("AlignmentMode is only supported by Interface Versions 2 and above.");
                 }
                 return (AlignmentMode)base.Device.AlignmentMode;
             }
@@ -48,7 +48,7 @@ namespace ASCOM.Standard.COM.DriverAccess
             {
                 if (InterfaceVersion == 1)
                 {
-                    throw new ASCOM.PropertyNotImplementedException("ApertureArea is only supported by Interface Versions 2 and 3.");
+                    throw new ASCOM.PropertyNotImplementedException("ApertureArea is only supported by Interface Versions 2 and above.");
                 }
                 return base.Device.ApertureArea;
             }
@@ -60,7 +60,7 @@ namespace ASCOM.Standard.COM.DriverAccess
             {
                 if (InterfaceVersion == 1)
                 {
-                    throw new ASCOM.PropertyNotImplementedException("ApertureDiameter is only supported by Interface Versions 2 and 3.");
+                    throw new ASCOM.PropertyNotImplementedException("ApertureDiameter is only supported by Interface Versions 2 and above.");
                 }
                 return base.Device.ApertureDiameter;
             }
@@ -186,7 +186,7 @@ namespace ASCOM.Standard.COM.DriverAccess
             {
                 if (InterfaceVersion == 1)
                 {
-                    throw new ASCOM.PropertyNotImplementedException("EquatorialSystem is only supported by Interface Versions 2 and 3.");
+                    throw new ASCOM.PropertyNotImplementedException("EquatorialSystem is only supported by Interface Versions 2 and above.");
                 }
                 return (EquatorialCoordinateType)base.Device.EquatorialSystem;
             }
@@ -198,7 +198,7 @@ namespace ASCOM.Standard.COM.DriverAccess
             {
                 if (InterfaceVersion == 1)
                 {
-                    throw new ASCOM.PropertyNotImplementedException("FocalLength is only supported by Interface Versions 2 and 3.");
+                    throw new ASCOM.PropertyNotImplementedException("FocalLength is only supported by Interface Versions 2 and above.");
                 }
                 return base.Device.FocalLength;
             }
@@ -210,7 +210,7 @@ namespace ASCOM.Standard.COM.DriverAccess
             {
                 if (InterfaceVersion == 1)
                 {
-                    throw new ASCOM.PropertyNotImplementedException("GuideRateDeclination is only supported by Interface Versions 2 and 3.");
+                    throw new ASCOM.PropertyNotImplementedException("GuideRateDeclination is only supported by Interface Versions 2 and above.");
                 }
                 return base.Device.GuideRateDeclination;
             }
@@ -218,7 +218,7 @@ namespace ASCOM.Standard.COM.DriverAccess
             {
                 if (InterfaceVersion == 1)
                 {
-                    throw new ASCOM.PropertyNotImplementedException("GuideRateDeclination is only supported by Interface Versions 2 and 3.");
+                    throw new ASCOM.PropertyNotImplementedException("GuideRateDeclination is only supported by Interface Versions 2 and above.");
                 }
                 base.Device.GuideRateDeclination = value;
             }
@@ -229,7 +229,7 @@ namespace ASCOM.Standard.COM.DriverAccess
             {
                 if (InterfaceVersion == 1)
                 {
-                    throw new ASCOM.PropertyNotImplementedException("GuideRateRightAscension is only supported by Interface Versions 2 and 3.");
+                    throw new ASCOM.PropertyNotImplementedException("GuideRateRightAscension is only supported by Interface Versions 2 and above.");
                 }
                 return base.Device.GuideRateRightAscension;
             }
@@ -237,7 +237,7 @@ namespace ASCOM.Standard.COM.DriverAccess
             {
                 if (InterfaceVersion == 1)
                 {
-                    throw new ASCOM.PropertyNotImplementedException("GuideRateRightAscension is only supported by Interface Versions 2 and 3.");
+                    throw new ASCOM.PropertyNotImplementedException("GuideRateRightAscension is only supported by Interface Versions 2 and above.");
                 }
                 base.Device.GuideRateRightAscension = value;
             }
@@ -258,7 +258,7 @@ namespace ASCOM.Standard.COM.DriverAccess
             {
                 if (InterfaceVersion == 1)
                 {
-                    throw new ASCOM.PropertyNotImplementedException("SiteElevation is only supported by Interface Versions 2 and 3.");
+                    throw new ASCOM.PropertyNotImplementedException("SiteElevation is only supported by Interface Versions 2 and above.");
                 }
                 return base.Device.SiteElevation;
             }
@@ -266,7 +266,7 @@ namespace ASCOM.Standard.COM.DriverAccess
             {
                 if (InterfaceVersion == 1)
                 {
-                    throw new ASCOM.PropertyNotImplementedException("SiteElevation is only supported by Interface Versions 2 and 3.");
+                    throw new ASCOM.PropertyNotImplementedException("SiteElevation is only supported by Interface Versions 2 and above.");
                 }
                 base.Device.SiteElevation = value;
             }
@@ -278,7 +278,7 @@ namespace ASCOM.Standard.COM.DriverAccess
             {
                 if (InterfaceVersion == 1)
                 {
-                    throw new ASCOM.PropertyNotImplementedException("SiteLatitude is only supported by Interface Versions 2 and 3.");
+                    throw new ASCOM.PropertyNotImplementedException("SiteLatitude is only supported by Interface Versions 2 and above.");
                 }
                 return base.Device.SiteLatitude;
             }
@@ -286,7 +286,7 @@ namespace ASCOM.Standard.COM.DriverAccess
             {
                 if (InterfaceVersion == 1)
                 {
-                    throw new ASCOM.PropertyNotImplementedException("SiteLatitude is only supported by Interface Versions 2 and 3.");
+                    throw new ASCOM.PropertyNotImplementedException("SiteLatitude is only supported by Interface Versions 2 and above.");
                 }
                 base.Device.SiteLatitude = value;
             }
@@ -297,7 +297,7 @@ namespace ASCOM.Standard.COM.DriverAccess
             {
                 if (InterfaceVersion == 1)
                 {
-                    throw new ASCOM.PropertyNotImplementedException("SiteLongitude is only supported by Interface Versions 2 and 3.");
+                    throw new ASCOM.PropertyNotImplementedException("SiteLongitude is only supported by Interface Versions 2 and above.");
                 }
                 return base.Device.SiteLongitude;
             }
@@ -305,7 +305,7 @@ namespace ASCOM.Standard.COM.DriverAccess
             {
                 if (InterfaceVersion == 1)
                 {
-                    throw new ASCOM.PropertyNotImplementedException("SiteLongitude is only supported by Interface Versions 2 and 3.");
+                    throw new ASCOM.PropertyNotImplementedException("SiteLongitude is only supported by Interface Versions 2 and above.");
                 }
                 base.Device.SiteLongitude = value;
             }
@@ -323,7 +323,7 @@ namespace ASCOM.Standard.COM.DriverAccess
             {
                 if (InterfaceVersion == 1)
                 {
-                    throw new ASCOM.PropertyNotImplementedException("TrackingRate is only supported by Interface Versions 2 and 3.");
+                    throw new ASCOM.PropertyNotImplementedException("TrackingRate is only supported by Interface Versions 2 and above.");
                 }
                 return (DriveRate)base.Device.TrackingRate;
             }
@@ -331,7 +331,7 @@ namespace ASCOM.Standard.COM.DriverAccess
             {
                 if (InterfaceVersion == 1)
                 {
-                    throw new ASCOM.PropertyNotImplementedException("TrackingRate is only supported by Interface Versions 2 and 3.");
+                    throw new ASCOM.PropertyNotImplementedException("TrackingRate is only supported by Interface Versions 2 and above.");
                 }
                 base.Device.TrackingRate = value;
             }
@@ -343,7 +343,7 @@ namespace ASCOM.Standard.COM.DriverAccess
             {
                 if (InterfaceVersion == 1)
                 {
-                    throw new ASCOM.PropertyNotImplementedException("TrackingRates is only supported by Interface Versions 2 and 3.");
+                    throw new ASCOM.PropertyNotImplementedException("TrackingRates is only supported by Interface Versions 2 and above.");
                 }
 
                 TrackingRates rates = new TrackingRates();
@@ -367,7 +367,7 @@ namespace ASCOM.Standard.COM.DriverAccess
         {
             if (InterfaceVersion == 1)
             {
-                throw new ASCOM.MethodNotImplementedException("AxisRates is only supported by Interface Versions 2 and 3.");
+                throw new ASCOM.MethodNotImplementedException("AxisRates is only supported by Interface Versions 2 and above.");
             }
             AxisRates rates = new AxisRates();
 
@@ -388,7 +388,7 @@ namespace ASCOM.Standard.COM.DriverAccess
         {
             if (InterfaceVersion == 1)
             {
-                throw new ASCOM.MethodNotImplementedException("AtPark is only supported by Interface Versions 2 and 3.");
+                throw new ASCOM.MethodNotImplementedException("AtPark is only supported by Interface Versions 2 and above.");
             }
             return (PointingState) base.Device.DestinationSideOfPier(RightAscension, Declination);
         }
@@ -397,7 +397,7 @@ namespace ASCOM.Standard.COM.DriverAccess
         {
             if (InterfaceVersion == 1)
             {
-                throw new ASCOM.MethodNotImplementedException("FindHome is only supported by Interface Versions 2 and 3.");
+                throw new ASCOM.MethodNotImplementedException("FindHome is only supported by Interface Versions 2 and above.");
             }
             base.Device.FindHome();
         }
@@ -426,7 +426,7 @@ namespace ASCOM.Standard.COM.DriverAccess
         {
             if (InterfaceVersion == 1)
             {
-                throw new ASCOM.MethodNotImplementedException("SlewToAltAz is only supported by Interface Versions 2 and 3.");
+                throw new ASCOM.MethodNotImplementedException("SlewToAltAz is only supported by Interface Versions 2 and above.");
             }
             base.Device.SlewToAltAz(Azimuth, Altitude);
         }
@@ -435,7 +435,7 @@ namespace ASCOM.Standard.COM.DriverAccess
         {
             if (InterfaceVersion == 1)
             {
-                throw new ASCOM.MethodNotImplementedException("SlewToAltAzAsync is only supported by Interface Versions 2 and 3.");
+                throw new ASCOM.MethodNotImplementedException("SlewToAltAzAsync is only supported by Interface Versions 2 and above.");
             }
             base.Device.SlewToAltAzAsync(Azimuth, Altitude);
         }
@@ -464,7 +464,7 @@ namespace ASCOM.Standard.COM.DriverAccess
         {
             if (InterfaceVersion == 1)
             {
-                throw new ASCOM.MethodNotImplementedException("SyncToAltAz is only supported by Interface Versions 2 and 3.");
+                throw new ASCOM.MethodNotImplementedException("SyncToAltAz is only supported by Interface Versions 2 and above.");
             }
             base.Device.SyncToAltAz(Azimuth, Altitude);
         }
