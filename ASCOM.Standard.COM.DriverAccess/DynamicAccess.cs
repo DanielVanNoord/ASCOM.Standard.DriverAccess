@@ -39,9 +39,8 @@ namespace ASCOM.Standard.COM.DriverAccess
             {
                 if (ex.InnerException?.HResult == ErrorCodes.NotImplemented)
                 {
-                    var member = (string)ex.InnerException.GetType().InvokeMember("PropertyOrMethod", BindingFlags.Default | BindingFlags.GetProperty, null, ex.InnerException, new object[] { }, CultureInfo.InvariantCulture);
-                    FakeLogger.LogMessageCrLf(binder.Name, "  Throwing MethodNotImplementedException: '" + member + "'");
-                    throw new MethodNotImplementedException(member, ex.InnerException);
+                    FakeLogger.LogMessageCrLf(binder.Name, "  Throwing MethodNotImplementedException: '" + binder.Name + "'");
+                    throw new MethodNotImplementedException(binder.Name, ex.InnerException);
                 }
 
                 CheckDotNetExceptions(binder.Name, ex);
@@ -73,9 +72,8 @@ namespace ASCOM.Standard.COM.DriverAccess
 
                 if (ex.InnerException?.HResult == ErrorCodes.NotImplemented)
                 {
-                    var member = (string)ex.InnerException.GetType().InvokeMember("PropertyOrMethod", BindingFlags.Default | BindingFlags.GetProperty, null, ex.InnerException, new object[] { }, CultureInfo.InvariantCulture);
-                    FakeLogger.LogMessageCrLf(binder.Name, "  Throwing PropertyNotImplementedException: '" + member + "'");
-                    throw new PropertyNotImplementedException(member, false, ex.InnerException);
+                    FakeLogger.LogMessageCrLf(binder.Name, "  Throwing PropertyNotImplementedException: '" + binder.Name + "'");
+                    throw new PropertyNotImplementedException(binder.Name, false, ex.InnerException);
                 }
 
                 throw;
@@ -105,9 +103,8 @@ namespace ASCOM.Standard.COM.DriverAccess
             {
                 if (ex.InnerException?.HResult == ErrorCodes.NotImplemented)
                 {
-                    var member = (string)ex.InnerException.GetType().InvokeMember("PropertyOrMethod", BindingFlags.Default | BindingFlags.GetProperty, null, ex.InnerException, new object[] { }, CultureInfo.InvariantCulture);
-                    FakeLogger.LogMessageCrLf(binder.Name, "  Throwing PropertyNotImplementedException: '" + member + "'");
-                    throw new PropertyNotImplementedException(member, false, ex.InnerException);
+                    FakeLogger.LogMessageCrLf(binder.Name, "  Throwing PropertyNotImplementedException: '" + binder.Name + "'");
+                    throw new PropertyNotImplementedException(binder.Name, false, ex.InnerException);
                 }
 
                 CheckDotNetExceptions(binder.Name, ex);
