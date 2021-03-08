@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 
 namespace TestCOMAccess
 {
@@ -100,7 +101,15 @@ namespace TestCOMAccess
                 Console.WriteLine(focuser.Name);
             }
 
+            using (var video = new ASCOM.Standard.COM.DriverAccess.Video(ASCOM.Standard.COM.DriverAccess.Video.Videos.First().ProgID))
+            {
+                video.Connected = true;
+                var test = video.Gammas;
+                Console.WriteLine(video.Name);
+            }
+
             Console.ReadLine();
         }
+
     }
 }
