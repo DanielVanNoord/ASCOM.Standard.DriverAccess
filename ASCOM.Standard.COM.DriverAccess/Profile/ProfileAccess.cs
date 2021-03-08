@@ -4,8 +4,16 @@ using System.Collections.Generic;
 
 namespace ASCOM.Standard.COM.DriverAccess
 {
+    /// <summary>
+    /// Functions used to find data in the ASCOM Profile which is stored in the Windows Registry.
+    /// </summary>
     public class ProfileAccess
     {
+        /// <summary>
+        /// Converts a DriverTypes enum to the string equivalent
+        /// </summary>
+        /// <param name="driverType">The requested type</param>
+        /// <returns>The equivalent in string form, often used to search the registry</returns>
         public static string DriverString(DriverTypes driverType)
         {
             switch (driverType)
@@ -46,6 +54,11 @@ namespace ASCOM.Standard.COM.DriverAccess
             throw new Exception("Unknown device type requested;");
         }
 
+        /// <summary>
+        /// Searches the ASCOM Registry for all drivers of a specified driver type
+        /// </summary>
+        /// <param name="DeviceType">The type to search for</param>
+        /// <returns>Returns a list of found ASCOM Devices, this includes ProgID and the friendly Name</returns>
         public static List<ASCOMRegistration> GetDrivers(DriverTypes DeviceType)
         {
             List<ASCOMRegistration> Drivers = new List<ASCOMRegistration>();
