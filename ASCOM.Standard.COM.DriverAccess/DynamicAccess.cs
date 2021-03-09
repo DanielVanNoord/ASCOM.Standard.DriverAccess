@@ -15,10 +15,18 @@ namespace ASCOM.Standard.COM.DriverAccess
             get => device;
         }
 
+        internal bool IsComObject
+        {
+            get;
+            private set;
+        }
+
         public DynamicAccess(string ProgID)
         {
             Type type = Type.GetTypeFromProgID(ProgID);
             device = Activator.CreateInstance(type);
+
+            IsComObject = type.IsCOMObject;
         }
 
         public override bool TryInvokeMember(InvokeMemberBinder binder, object[] args, out object result)
