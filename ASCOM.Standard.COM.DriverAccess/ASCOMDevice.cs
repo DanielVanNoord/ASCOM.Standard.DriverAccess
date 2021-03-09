@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 
 namespace ASCOM.Standard.COM.DriverAccess
@@ -80,7 +82,42 @@ namespace ASCOM.Standard.COM.DriverAccess
 
         public void Dispose()
         {
-            Device.Dispose();
+            if (Device.Device != null)
+            {
+                try
+                {
+                    if (Device.IsComObject)
+                    {
+                        //run the COM object method
+                        try
+                        {
+                            Device.Dispose();
+                        }
+                        catch (COMException ex)
+                        {
+                            if (ex.ErrorCode == int.Parse("80020006", NumberStyles.HexNumber, CultureInfo.InvariantCulture))
+                            {
+                                // "Driver does not have a Dispose method"
+                            }
+                        }
+                        catch
+                        {
+                        }
+
+                        //"This is a COM object so attempting to release it"
+                        var releaseComObject = Marshal.ReleaseComObject(Device.Device);
+                        if (releaseComObject == 0) Device.Device = null;
+                    }
+                    else // Should be a .NET object so lets dispose of it
+                    {
+                        Device.Dispose();
+                    }
+                }
+                catch
+                {
+                    // Ignore any errors here as we are disposing
+                }
+            }
         }
 
         public void SetupDialog()
