@@ -2,6 +2,8 @@
 
 A set of experimental libraries to access ASCOM COM drivers from .Net Standard / Core / 5.0 and (coming soon) a library to access Alpaca REST devices. 
 
+See sub project readmes for more details.
+
 Current status:
  - COM driver access is mostly functional and being tested
  - Chooser style UI for .Net Core is coming soon

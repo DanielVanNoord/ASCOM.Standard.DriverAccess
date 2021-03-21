@@ -111,7 +111,7 @@ namespace ASCOM.Standard.COM.DriverAccess
 
         public void Sync(float Position)
         {
-                       if (InterfaceVersion > 2)
+            if (InterfaceVersion > 2)
             {
                 base.Device.MoveMechanical(Position);
             }
