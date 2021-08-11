@@ -138,9 +138,6 @@ namespace ASCOM.Standard.COM.DriverAccess
         {
             string FullName = e.InnerException?.GetType().FullName ?? "Unknown Exception";
             string message = "";
-            string member;
-            string value;
-            string range;
 
             int HResult = e.InnerException?.HResult ?? 0;
 
@@ -169,64 +166,57 @@ namespace ASCOM.Standard.COM.DriverAccess
             {
                 message = e.InnerException.Message;
                 FakeLogger.LogMessageCrLf(memberName, "  Throwing InvalidOperationException: '" + message + "'");
-                throw new InvalidOperationException(message, e.InnerException);
+                throw new InvalidOperationException(message);
             }
 
             if (HResult == ErrorCodes.InvalidValue)
             {
-                member = (string)e.InnerException.GetType().InvokeMember("PropertyOrMethod", BindingFlags.Default | BindingFlags.GetProperty, null, e.InnerException, new object[] { }, CultureInfo.InvariantCulture);
-                value = (string)e.InnerException.GetType().InvokeMember("Value", BindingFlags.Default | BindingFlags.GetProperty, null, e.InnerException, new object[] { }, CultureInfo.InvariantCulture);
-                range = (string)e.InnerException.GetType().InvokeMember("Range", BindingFlags.Default | BindingFlags.GetProperty, null, e.InnerException, new object[] { }, CultureInfo.InvariantCulture);
-
-                FakeLogger.LogMessageCrLf(memberName, "  Throwing InvalidValueException: '" + member + "' '" + value + "' '" + range + "'");
-                throw new InvalidValueException(member, value, range, e.InnerException);
+                message = e.InnerException.Message;
+                FakeLogger.LogMessageCrLf(memberName, "  Throwing InvalidValueException: '" + message + "'");
+                throw new InvalidValueException(message);
             }
 
             if (HResult == ErrorCodes.NotConnected)
             {
                 message = e.InnerException.Message;
                 FakeLogger.LogMessageCrLf(memberName, "  Throwing NotConnectedException: '" + message + "'");
-                throw new NotConnectedException(message, e.InnerException);
+                throw new NotConnectedException(message);
             }
 
             if (HResult == ErrorCodes.NotImplemented)
             {
-                member = (string)e.InnerException.GetType().InvokeMember("PropertyOrMethod", BindingFlags.Default | BindingFlags.GetProperty, null, e.InnerException, new object[] { }, CultureInfo.InvariantCulture);
-                FakeLogger.LogMessageCrLf(memberName, "  Throwing NotImplementedException: '" + member + "'");
-                throw new NotImplementedException(member, e.InnerException);
+                message = e.InnerException.Message;
+                FakeLogger.LogMessageCrLf(memberName, "  Throwing NotImplementedException: '" + message + "'");
+                throw new NotImplementedException(message);
             }
 
             if (HResult == ErrorCodes.InvalidWhileParked)
             {
                 message = e.InnerException.Message;
-
                 FakeLogger.LogMessageCrLf(memberName, "  Throwing ParkedException: '" + message + "'");
-                throw new ParkedException(message, e.InnerException);
+                throw new ParkedException(message);
             }
 
             if (HResult == ErrorCodes.InvalidWhileSlaved)
             {
                 message = e.InnerException.Message;
-
                 FakeLogger.LogMessageCrLf(memberName, "  Throwing SlavedException: '" + message + "'");
-                throw new SlavedException(message, e.InnerException);
+                throw new SlavedException(message);
             }
 
             if (HResult == ErrorCodes.ValueNotSet)
             {
-                member = (string)e.InnerException.GetType().InvokeMember("PropertyOrMethod", BindingFlags.Default | BindingFlags.GetProperty, null, e.InnerException, new object[] { }, CultureInfo.InvariantCulture);
-
-                FakeLogger.LogMessageCrLf(memberName, "  Throwing ValueNotSetException: '" + member + "'");
-                throw new ValueNotSetException(member, e.InnerException);
+                message = e.InnerException.Message;
+                FakeLogger.LogMessageCrLf(memberName, "  Throwing ValueNotSetException: '" + message + "'");
+                throw new ValueNotSetException(message);
             }
 
             if (HResult >= ErrorCodes.DriverBase && HResult <= ErrorCodes.DriverMax)
             {
                 message = e.InnerException.Message;
-                int number = (int)e.InnerException.GetType().InvokeMember("Number", BindingFlags.Default | BindingFlags.GetProperty, null, e.InnerException, new object[] { }, CultureInfo.InvariantCulture);
 
-                FakeLogger.LogMessageCrLf(memberName, "  Throwing DriverException: '" + message + "' '" + number + "'");
-                throw new DriverException(message, number, e.InnerException);
+                FakeLogger.LogMessageCrLf(memberName, "  Throwing DriverException: '" + message + "'");
+                throw new DriverException(message);
             }
 
             if (e.InnerException is COMException)
