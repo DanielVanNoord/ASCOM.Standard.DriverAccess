@@ -34,13 +34,12 @@ namespace ASCOM.Standard.COM.DriverAccess
             try
             {
                 result = Unwrap().GetType().InvokeMember(
-             binder.Name,
-             BindingFlags.InvokeMethod,
-             Type.DefaultBinder,
-             Unwrap(),
-             args
-         );
-
+                    binder.Name,
+                    BindingFlags.InvokeMethod,
+                    Type.DefaultBinder,
+                    Unwrap(),
+                    args
+                );
                 return true;
             }
             catch (TargetInvocationException ex)
@@ -66,12 +65,12 @@ namespace ASCOM.Standard.COM.DriverAccess
             try
             {
                 Unwrap().GetType().InvokeMember(
-            binder.Name,
-            BindingFlags.SetProperty,
-            Type.DefaultBinder,
-            Unwrap(),
-            new object[] { value }
-        );
+                    binder.Name,
+                    BindingFlags.SetProperty,
+                    Type.DefaultBinder,
+                    Unwrap(),
+                    new object[] { value }
+                 );
                 return true;
             }
             catch (TargetInvocationException ex)
@@ -97,14 +96,13 @@ namespace ASCOM.Standard.COM.DriverAccess
             try
             {
                 result = Unwrap().GetType().InvokeMember(
-                binder.Name,
-                BindingFlags.GetProperty,
-                Type.DefaultBinder,
-                Unwrap(),
-                new object[] { },
-                CultureInfo.InvariantCulture
-            );
-
+                    binder.Name,
+                    BindingFlags.GetProperty,
+                    Type.DefaultBinder,
+                    Unwrap(),
+                    new object[] { },
+                    CultureInfo.InvariantCulture
+                );
                 return true;
             }
             catch (TargetInvocationException ex)
@@ -125,8 +123,7 @@ namespace ASCOM.Standard.COM.DriverAccess
             }
         }
 
-        private object Unwrap()
-       => Device ?? throw new ObjectDisposedException(nameof(Device));
+        private object Unwrap() => Device ?? throw new ObjectDisposedException(nameof(Device));
 
         /// <summary>
         /// Checks for ASCOM exceptions returned as inner exceptions of TargetInvocationException. When new ASCOM exceptions are created
@@ -136,8 +133,7 @@ namespace ASCOM.Standard.COM.DriverAccess
         /// <param name="e">The thrown TargetInvocationException including the inner exception</param>
         private void CheckDotNetExceptions(string memberName, Exception e)
         {
-            string FullName = e.InnerException?.GetType().FullName ?? "Unknown Exception";
-            string message = "";
+            string message = string.Empty;
 
             int HResult = e.InnerException?.HResult ?? 0;
 
