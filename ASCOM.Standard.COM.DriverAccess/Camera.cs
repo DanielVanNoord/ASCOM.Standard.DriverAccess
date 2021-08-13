@@ -332,7 +332,7 @@ namespace ASCOM.Standard.COM.DriverAccess
                 {
                     throw new PropertyNotImplementedException("SensorType is only supported by Interface Versions 2 and above.");
                 }
-                return base.Device.SensorType;
+                return (SensorType) base.Device.SensorType;
             }
         }
 
