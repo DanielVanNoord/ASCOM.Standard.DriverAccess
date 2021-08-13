@@ -24,6 +24,10 @@ namespace ASCOM.Standard.COM.DriverAccess
         public DynamicAccess(string ProgID)
         {
             Type type = Type.GetTypeFromProgID(ProgID);
+            if(type == null)
+            {
+                throw new Exception($"Failed to load ASCOM Driver with ProgID {ProgID}.");
+            }
             device = Activator.CreateInstance(type);
 
             IsComObject = type.IsCOMObject;
